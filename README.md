@@ -2,4 +2,4 @@
 
 A handy guide for preparing for Salesforce interviews.
 
-👉 **[Open the Handbook](https://YOUR-USERNAME.github.io/REPO-NAME/)**
+👉 **[Open the Handbook](https://soumyag001.github.io/Salesforce-Admin-Handbook/)**
