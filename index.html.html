@@ -1,0 +1,381 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Salesforce Interview Handbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: sticky topic rail on desktop, horizontal chip bar on phones; each topic = facts panel + accordion Q&A. */
+:root{
+  --bg:#f4f6f9; --surface:#ffffff; --ink:#142033; --muted:#566478; --line:#d9e0ea;
+  --accent:#0a62c4; --accent-soft:#e3eefb; --code-bg:#eaeff6;
+  --basic:#1b7f5c; --mid:#9a6200; --adv:#b4322f;
+  --basic-bg:#e1f3ec; --mid-bg:#fbefd5; --adv-bg:#fbe4e2;
+  --font-display:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+  --font-body:'IBM Plex Sans','Segoe UI',system-ui,sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1522; --surface:#151e2e; --ink:#e4eaf3; --muted:#94a2b8; --line:#26334a;
+  --accent:#6cb0ff; --accent-soft:#16294a; --code-bg:#1c2840;
+  --basic:#5fd1a4; --mid:#f0b650; --adv:#ff8f8a;
+  --basic-bg:#12332a; --mid-bg:#3a2d10; --adv-bg:#3b1d1d; color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --bg:#0e1522; --surface:#151e2e; --ink:#e4eaf3; --muted:#94a2b8; --line:#26334a;
+  --accent:#6cb0ff; --accent-soft:#16294a; --code-bg:#1c2840;
+  --basic:#5fd1a4; --mid:#f0b650; --adv:#ff8f8a;
+  --basic-bg:#12332a; --mid-bg:#3a2d10; --adv-bg:#3b1d1d; color-scheme:dark;}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.6;padding-inline:16px;padding-block:24px 64px}
+.wrap{max-width:1120px;margin-inline:auto}
+header{padding-block:8px 20px;border-bottom:1px solid var(--line);margin-bottom:20px}
+h1{font-family:var(--font-display);font-size:clamp(28px,5vw,44px);line-height:1.1;margin:0 0 8px;text-wrap:balance;letter-spacing:-.01em}
+header p{margin:0;color:var(--muted);max-width:68ch}
+.layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:32px;align-items:start}
+nav.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);display:flex;flex-direction:column;gap:2px;min-width:0}
+nav.rail a{color:var(--muted);text-decoration:none;padding:6px 10px;border-radius:6px;font-size:14px;border-left:2px solid transparent}
+nav.rail a:hover,nav.rail a.on{color:var(--ink);background:var(--accent-soft);border-left-color:var(--accent)}
+.tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:20px}
+.tools input[type=search]{flex:1 1 220px;min-width:0;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font:inherit}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+button{font:inherit;cursor:pointer}
+.chip{padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);font-size:13px}
+.chip[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+section.topic{margin-bottom:44px;scroll-margin-top:16px}
+section.topic>h2{font-family:var(--font-display);font-size:clamp(22px,3.2vw,28px);margin:0 0 6px;text-wrap:balance}
+.intro{color:var(--muted);margin:0 0 14px;max-width:70ch}
+.facts{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin-bottom:16px;min-width:0}
+.facts h3{margin:0 0 8px;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.facts ul{margin:0;padding-left:18px}
+.facts li{margin-block:3px}
+.scroll{overflow-x:auto;max-width:100%}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600}
+td:first-child{font-weight:500}
+code{font-family:var(--font-mono);font-size:.88em;background:var(--code-bg);padding:1px 5px;border-radius:4px}
+pre{font-family:var(--font-mono);font-size:13px;background:var(--code-bg);padding:12px 14px;border-radius:8px;overflow-x:auto;margin:10px 0}
+pre code{background:none;padding:0}
+details{background:var(--surface);border:1px solid var(--line);border-radius:10px;margin-bottom:8px;min-width:0}
+summary{cursor:pointer;padding:12px 14px;display:flex;gap:10px;align-items:flex-start;list-style:none;font-weight:500}
+summary::-webkit-details-marker{display:none}
+summary::before{content:'+';font-family:var(--font-mono);color:var(--accent);width:14px;flex:none;text-align:center;margin-top:1px}
+details[open]>summary::before{content:'\2212'}
+summary .q{flex:1;min-width:0}
+.tag{flex:none;font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;letter-spacing:.03em;margin-top:2px}
+.tag.Basic{color:var(--basic);background:var(--basic-bg)}
+.tag.Intermediate{color:var(--mid);background:var(--mid-bg)}
+.tag.Advanced{color:var(--adv);background:var(--adv-bg)}
+.ans{padding:2px 16px 14px 38px;min-width:0}
+.ans p{margin:8px 0}
+.ans ul,.ans ol{margin:8px 0;padding-left:20px}
+.ans li{margin-block:3px}
+.tip{border-left:3px solid var(--accent);background:var(--accent-soft);padding:8px 12px;border-radius:0 6px 6px 0;margin:10px 0;font-size:14px}
+.count{color:var(--muted);font-size:13px;margin-left:auto}
+.empty{color:var(--muted);padding:20px;text-align:center}
+footer{color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:16px;max-width:75ch}
+@media (max-width:820px){
+  .layout{grid-template-columns:minmax(0,1fr)}
+  nav.rail{position:static;flex-direction:row;overflow-x:auto;gap:6px;padding-bottom:6px}
+  nav.rail a{white-space:nowrap;border:1px solid var(--line);border-radius:999px;border-left-width:1px;padding:5px 12px;font-size:13px}
+  .ans{padding-left:16px}
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+
+<div class="wrap">
+<header>
+  <h1>Salesforce Interview Handbook</h1>
+  <p>Data model, relationships, field types, governor limits, security, sharing and approvals. Each topic has a quick-facts panel and questions with model answers. Tap a question to reveal the answer; try answering aloud first.</p>
+</header>
+
+<div class="layout">
+  <nav class="rail" id="rail" aria-label="Topics"></nav>
+  <main>
+    <div class="tools">
+      <input type="search" id="q" placeholder="Search questions and answers" aria-label="Search">
+      <div class="chips" id="levels" role="group" aria-label="Difficulty">
+        <button class="chip" data-l="all" aria-pressed="true">All</button>
+        <button class="chip" data-l="Basic" aria-pressed="false">Basic</button>
+        <button class="chip" data-l="Intermediate" aria-pressed="false">Intermediate</button>
+        <button class="chip" data-l="Advanced" aria-pressed="false">Advanced</button>
+      </div>
+      <button class="chip" id="toggleAll">Expand all</button>
+      <span class="count" id="count"></span>
+    </div>
+    <div id="content"></div>
+    <footer>Limits, editions and permission-model details change between releases. Confirm exact numbers against the current Salesforce documentation (Apex Developer Guide limits, Salesforce Help) before quoting them as hard facts. Where a behavior is edition-dependent or easy to misremember, test it in a sandbox or Developer Edition org.</footer>
+  </main>
+</div>
+</div>
+
+<script>
+const T = [];
+
+T.push({id:'objects',title:'Objects, sObjects and the data model',
+intro:'The foundation: what an object is, the kinds of objects, and how Apex sees them.',
+facts:`<h3>Object kinds and suffixes</h3>
+<div class="scroll"><table>
+<tr><th>Kind</th><th>Suffix</th><th>Use</th></tr>
+<tr><td>Standard object</td><td>none</td><td>Account, Contact, Opportunity, Case, Lead. Shipped by Salesforce.</td></tr>
+<tr><td>Custom object</td><td><code>__c</code></td><td>Your own business data. Fields are also <code>__c</code>.</td></tr>
+<tr><td>External object</td><td><code>__x</code></td><td>Data stays outside Salesforce (Salesforce Connect, OData, cross-org).</td></tr>
+<tr><td>Big object</td><td><code>__b</code></td><td>Billions of rows, archival. Restricted querying (index fields only), no triggers/flows on standard terms.</td></tr>
+<tr><td>Custom metadata type</td><td><code>__mdt</code></td><td>Deployable configuration records. Queryable without counting data rows toward some limits.</td></tr>
+<tr><td>Platform event</td><td><code>__e</code></td><td>Event bus messages for pub/sub.</td></tr>
+<tr><td>Share / History / Feed</td><td><code>__Share</code>, <code>__History</code>, <code>__Feed</code></td><td>System-generated companions of an object.</td></tr>
+</table></div>`,
+qs:[
+['Basic','What is the difference between an object, a record and a field?','<p>An object is a table (schema definition), a record is one row, and a field is a column. Standard objects ship with the platform; custom objects are created by you and get the <code>__c</code> suffix.</p>'],
+['Basic','What is an sObject?','<p><code>sObject</code> is the generic Apex type that every Salesforce record is an instance of. <code>Account</code>, <code>Contact</code> and <code>MyObj__c</code> are concrete sObject types. A variable of type <code>SObject</code> can hold any of them, which makes dynamic code possible.</p><pre><code>SObject s = new Account(Name=\'Acme\');\ns.put(\'Industry\',\'Retail\');\nString n = (String) s.get(\'Name\');\nSchema.SObjectType t = s.getSObjectType();</code></pre>'],
+['Basic','What is the difference between a 15-character and an 18-character record ID?','<p>The 15-character ID is case-sensitive. The 18-character ID adds a 3-character checksum suffix that makes it case-insensitive, so it is safe in tools such as Excel or VLOOKUP. Apex and the API accept both and Apex compares IDs correctly regardless of length. The first 3 characters are the key prefix identifying the object (for example <code>001</code> is Account, <code>003</code> is Contact).</p>'],
+['Intermediate','What are Custom Settings and how do they differ from Custom Metadata Types?','<p>Both store configuration data that code can read cheaply.</p><ul><li><b>Custom Settings</b>: list or hierarchy type. Hierarchy settings can resolve a value per org, profile or user. Records are data, so they do <b>not</b> deploy with metadata; you must load them separately in each org.</li><li><b>Custom Metadata Types</b>: records are metadata, so they travel in change sets, packages and source control. Records can be referenced in formulas, validation rules and flows, and can be packaged and protected.</li></ul><p>Rule of thumb: use Custom Metadata when configuration must be deployed. Use hierarchy Custom Settings when you need per-user or per-profile overrides.</p>'],
+['Intermediate','Explain polymorphic fields and give examples.','<p>A polymorphic relationship field can point to more than one object type. Examples: <code>WhoId</code> on Task/Event (Contact or Lead), <code>WhatId</code> (Account, Opportunity, Case, custom objects), and <code>OwnerId</code> (User or Queue). In SOQL use <code>TYPEOF</code> or the <code>Owner.Type</code> relationship, and in Apex inspect <code>whoId.getSObjectType()</code>.</p><pre><code>SELECT TYPEOF What WHEN Account THEN Phone WHEN Opportunity THEN Amount END FROM Task</code></pre>'],
+['Intermediate','What is a record type and when would you use one?','<p>A record type lets different business processes, picklist values and page layouts coexist on one object. A profile or permission set grants access to specific record types. Use it when groups of users need different picklist values or layouts for the same object (for example two Case processes). Avoid it when a single field and dynamic forms would do, because each record type adds admin overhead and complicates data loads and reports.</p>'],
+['Advanced','When would you pick a Big Object or External Object over a custom object?','<ul><li><b>Big Object</b>: you need to store hundreds of millions to billions of rows (audit trails, IoT history, archived data) and can live with a fixed index, limited SOQL, and no standard UI features.</li><li><b>External Object</b>: the system of record is outside Salesforce and you want real-time access without copying data. Trade-offs: callout latency, limits on queries, restricted reporting, relationships limited to external/indirect lookups.</li><li><b>Custom object</b>: data needs the full platform (triggers, flows, sharing, reports) and volume is manageable.</li></ul>'],
+['Advanced','How do you write code that works against any object without hard-coding it?','<p>Use the Schema describe API and dynamic SOQL/DML.</p><pre><code>Schema.SObjectType t = Schema.getGlobalDescribe().get(\'Account\');\nMap&lt;String,Schema.SObjectField&gt; fm = t.getDescribe().fields.getMap();\nString q = \'SELECT Id, Name FROM \' + String.escapeSingleQuotes(objName) + \' LIMIT 10\';\nList&lt;SObject&gt; rows = Database.query(q);</code></pre><p>Remember that dynamic SOQL needs escaping or bind variables to avoid SOQL injection, and describe calls count toward limits so cache results.</p>'],
+]});
+
+T.push({id:'fields',title:'Field types and field type conversion',
+intro:'Which field types exist, what each is good for, and what happens to data when you change a type.',
+facts:`<h3>Common field types</h3>
+<ul>
+<li><b>Text</b> (up to 255 chars), <b>Text Area</b> (255), <b>Long Text Area</b> (up to 131,072 chars, not filterable or sortable in most contexts), <b>Rich Text Area</b>.</li>
+<li><b>Number, Currency, Percent</b> with defined length and decimal places. <b>Auto Number</b> uses a format like <code>INV-{0000}</code>.</li>
+<li><b>Picklist, Multi-Select Picklist</b>, plus global value sets and field dependencies (controlling and dependent fields).</li>
+<li><b>Checkbox, Date, Date/Time, Time, Email, Phone, URL, Geolocation</b>.</li>
+<li><b>Formula</b> (read-only calculated), <b>Roll-Up Summary</b> (master-detail parent only), <b>Lookup</b>, <b>Master-Detail</b>, <b>Hierarchy</b>, <b>External Lookup</b>, <b>Encrypted Text</b> (classic encryption, masked).</li>
+</ul>`,
+qs:[
+['Basic','What is the difference between a formula field and a roll-up summary field?','<p>A formula field calculates a value on the same record at read time from its own fields or fields of related parents (cross-object, up to 10 relationships). A roll-up summary sits on the parent of a master-detail relationship and aggregates child records using COUNT, SUM, MIN or MAX with optional filter criteria. Formula values are not stored and recalculate on access; roll-up values are stored on the parent and recalculated when children change.</p>'],
+['Basic','Difference between Text, Text Area, Long Text Area and Rich Text Area?','<p>Text is a single line up to 255 characters and is filterable and usable in more places. Text Area is multi-line up to 255. Long Text Area is multi-line up to 131,072 characters but cannot be used in filters, sort or most formulas. Rich Text Area adds formatting and images and is also long.</p>'],
+['Basic','What is a Global Value Set?','<p>A reusable list of picklist values shared by multiple picklist fields. Editing the global set updates every field that uses it. A field that uses a global value set cannot have its own values edited, and restricted picklists enforce the list in the API.</p>'],
+['Intermediate','Which fields can be indexed and why does it matter?','<p>Primary keys (Id), names, owner, lookup and master-detail fields, audit dates, and unique or External ID fields are indexed automatically. Custom indexes can be requested for others. Selective queries need an indexed filter that returns below a threshold of records (roughly 10 percent of the first million, 5 percent beyond, with caps), otherwise a full table scan occurs and large objects can throw "non-selective query" errors in triggers.</p>'],
+['Intermediate','What is an External ID field?','<p>A custom field flagged as External ID is indexed and can be used in upsert operations and in data tools to match records from another system. Text, Number, Email and Auto Number fields can be External IDs. Pair it with Unique for upserts that must match exactly one record.</p><pre><code>Database.upsert(accounts, Account.Fields.ERP_Id__c, false);</code></pre>'],
+['Intermediate','What are controlling and dependent picklists?','<p>A controlling field (picklist or checkbox) determines which values of the dependent picklist are available. Up to 300 values in a controlling picklist with a limit on dependent values, and the dependency is stored per value pair. Dependent logic is enforced in the UI, but the API only enforces it when a field is restricted. Validation rules are the safer way to enforce in all channels.</p>'],
+['Advanced','What happens when you change a field\'s data type? Which conversions are safe?','<p>Changing the type of a custom field preserves data where it can and silently drops or truncates what does not fit.</p><ul><li><b>Usually safe</b>: Text to Text Area or Long Text Area, Text to Picklist (existing distinct values become picklist values, with a cap), Picklist to Text, Number to Currency or Percent, Number to Text, Email/Phone/URL to Text.</li><li><b>Lossy</b>: Long Text Area to Text (truncated to 255), Text to Number (non-numeric values become null), reducing decimal places (rounds), Multi-select Picklist to Picklist (only one value kept; verify which), Picklist to Number.</li><li><b>Special</b>: Lookup can be converted to Master-Detail (only when every child record has a populated lookup), and Master-Detail to Lookup (only when no roll-up summary fields depend on it). Auto Number converts to and from Text. Formula and Roll-Up Summary fields cannot be converted in or out, and encrypted fields cannot be converted either direction.</li><li><b>Not possible</b>: changing standard field types, and changing a field referenced in places that require its original type without first removing those references.</li></ul><div class="tip">Interview habit: say that you export a backup, test in a sandbox, and review dependent Apex, flows, reports, validation rules and integrations before converting. The Setup help topic "Notes on Changing Custom Field Types" has the authoritative matrix.</div>'],
+['Advanced','A field is marked Unique and Case Sensitive. How does that interact with data loads?','<p>Unique enforces no duplicates across all records, with or without case sensitivity based on your setting. On inserts and upserts, duplicate values cause row-level errors, so large loads should use the Bulk API with a clean file or an upsert key. Changing a field from non-unique to unique fails if duplicates already exist. Deleted records in the Recycle Bin can still count for uniqueness until purged.</p>'],
+['Advanced','How do you handle field-level history and what are its limits?','<p>Field History Tracking can track up to 20 fields per object, shows 18 months in the UI and 24 months via the API, and long text fields are tracked as changed without values. For longer retention, Field Audit Trail (a paid add-on) keeps up to 10 years via a big object history.</p>'],
+]});
+
+T.push({id:'relationships',title:'Relationships: lookup, master-detail and more',
+intro:'The most-asked topic. Know the behavioral differences cold, and the conversion rules.',
+facts:`<h3>Lookup vs Master-Detail</h3>
+<div class="scroll"><table>
+<tr><th>Aspect</th><th>Lookup</th><th>Master-Detail</th></tr>
+<tr><td>Coupling</td><td>Loose</td><td>Tight, child depends on parent</td></tr>
+<tr><td>Parent required</td><td>Optional (can be required)</td><td>Always required</td></tr>
+<tr><td>Owner field on child</td><td>Yes</td><td>No, child inherits owner from master</td></tr>
+<tr><td>Sharing and security</td><td>Independent</td><td>Inherited from master (Controlled by Parent)</td></tr>
+<tr><td>Delete parent</td><td>Clear value, block deletion, or (custom only) cascade delete</td><td>Cascade deletes children; undelete restores them</td></tr>
+<tr><td>Roll-up summary</td><td>No (unless via DLRS, flow or Apex)</td><td>Yes, on master</td></tr>
+<tr><td>Reparenting</td><td>Always possible</td><td>Only if "Allow reparenting" is enabled</td></tr>
+<tr><td>Limits per object</td><td colspan="2">Up to 2 master-detail fields; up to 40 relationship fields in total on most editions; roll-up summaries up to 25 per object</td></tr>
+<tr><td>Standard object as child</td><td>Allowed</td><td>Not allowed (a standard object cannot be on the detail side)</td></tr>
+</table></div>`,
+qs:[
+['Basic','Compare lookup and master-detail relationships.','<p>Lookup is a loose reference: child has its own owner, sharing, and can exist without a parent. Master-detail is tight: the parent is mandatory, the child has no owner field and inherits the parent\'s owner, sharing and security, deletion cascades, and the parent can have roll-up summary fields. A child can be reparented only when allowed in the relationship settings.</p>'],
+['Basic','What is a many-to-many relationship and how do you build one?','<p>Create a junction object with two master-detail fields, one to each of the two objects that need to be related. The first master-detail you create is the primary relationship and the second is secondary. The junction record inherits sharing from both parents, so a user needs access to both parents to see and edit the junction record (if one parent is Public Read Only, the user is limited to that level of access).</p>'],
+['Basic','What is a self-relationship and what is a hierarchical relationship?','<p>A self-relationship is a lookup from an object to itself (for example Account.ParentId). The Hierarchy relationship is a special lookup available only on User for managers; it can reference only other users.</p>'],
+['Intermediate','What happens to the primary and secondary relationship if you delete a parent of a junction object?','<p>If either master record is deleted the junction records are deleted too (cascade). The primary relationship determines the record\'s owner-like behavior, so the junction\'s sharing and the look of related lists follow it, and the first MD becomes the one used for the default layout. If the primary master is deleted and then undeleted, the junction is restored; if the secondary is deleted, the junction is also deleted and restored on undelete. Check the exact behavior in a sandbox for deep chains.</p>'],
+['Intermediate','Can you convert a lookup to master-detail and the reverse? What are the preconditions?','<p><b>Lookup to master-detail</b>: every existing child record must have a non-null lookup value, the object cannot already have more than 2 master-detail fields, and after conversion the child loses its owner field and takes the parent\'s sharing. Standard objects cannot be children. <b>Master-detail to lookup</b>: no roll-up summary fields may exist on the master based on that child, and the relationship cannot be part of a many-to-many junction configuration that depends on it. After conversion the child gets an owner and its own sharing, and OWD for the child must be set.</p><div class="tip">Typical workaround for a lookup with nulls: populate with a placeholder parent, convert, then clean up.</div>'],
+['Intermediate','What are the deletion options for a lookup relationship?','<ul><li><b>Clear the value of this field</b> (default, optional lookup only).</li><li><b>Don\'t allow deletion of the lookup record that\'s part of a lookup relationship</b>.</li><li><b>Delete this record also</b> (cascade): available for custom object children of a lookup and not for standard objects; it carries risks, so use sparingly.</li></ul>'],
+['Intermediate','What is a roll-up summary field and its limitations?','<p>Defined on the master of a master-detail. Operations: COUNT, SUM, MIN, MAX. Supports filter criteria on child records. Limits: max 25 per object, cannot roll up formula fields that reference other objects or certain system fields, and cannot be created when the relationship is a lookup (use flow, Apex trigger or Declarative Lookup Rollup Summaries for lookups). Updates trigger the parent\'s save logic, which can fire parent triggers and validation rules.</p>'],
+['Intermediate','What is a cross-object formula and what are its limits?','<p>A formula that references fields from related parent records using dot notation, for example <code>Account.Owner.Manager.Email</code>. It can span up to 10 unique relationships and cannot reference fields of child records. It counts toward formula compile size (5,000 characters, and a compiled size limit of 5,000 bytes in older docs; the safe summary is "formulas have a compile-size limit so large ones need to be split").</p>'],
+['Advanced','What are External Lookup and Indirect Lookup relationships?','<ul><li><b>External Lookup</b>: a child external object points to a parent standard/custom object in Salesforce (match on Salesforce Id).</li><li><b>Indirect Lookup</b>: a child external object points to a parent Salesforce object using an External ID field on the parent to match against a column in the external system.</li></ul>'],
+['Advanced','How does a master-detail relationship affect sharing and what is "Controlled by Parent"?','<p>The detail object has no OWD of its own; its setting is Controlled by Parent. A user can read, edit or delete the detail record only if they can do the same on the master (for Read/Write access you need Edit on the master, and Delete on the detail needs Edit on the master along with the object permission). Sharing rules cannot be written for the child. Because of this, detail objects with sensitive access models often need a lookup instead.</p>'],
+['Advanced','Design question: Opportunities with multiple Products and Partners across Accounts. How would you model it?','<p>Opportunity to Product is already modeled by OpportunityLineItem (a junction between Opportunity and PricebookEntry). For partners, create a junction custom object <code>Opportunity_Partner__c</code> with master-detail to Opportunity and a lookup to Account (a standard object cannot take a second master-detail; or you can use standard Partner object). Choose the lookup on Account so that partner access does not inherit Account sharing. Add a Role picklist and roll-ups on Opportunity (COUNT of partners).</p>'],
+['Advanced','What happens to record locking and performance with a skewed parent (data skew)?','<p>When more than about 10,000 child records share one parent (ownership skew, parent-child skew, lookup skew), saving children can contend for locks on the parent, causing <code>UNABLE_TO_LOCK_ROW</code> errors, and sharing recalculation becomes slow. Mitigations: spread children across multiple parents, avoid integration users owning huge numbers of records, use a lookup instead of master-detail, serialize loads with Bulk API serial mode, and avoid roll-ups on skewed parents.</p>'],
+]});
+
+T.push({id:'limits',title:'Governor limits',
+intro:'Salesforce is multitenant, so Apex runs under per-transaction limits. Know the key numbers and the patterns that avoid them.',
+facts:`<h3>Per-transaction limits (Apex)</h3>
+<div class="scroll"><table>
+<tr><th>Limit</th><th>Synchronous</th><th>Asynchronous</th></tr>
+<tr><td>SOQL queries issued</td><td>100</td><td>200</td></tr>
+<tr><td>Records returned by SOQL</td><td colspan="2">50,000</td></tr>
+<tr><td>DML statements</td><td colspan="2">150</td></tr>
+<tr><td>Records processed by DML</td><td colspan="2">10,000</td></tr>
+<tr><td>CPU time</td><td>10,000 ms</td><td>60,000 ms</td></tr>
+<tr><td>Heap size</td><td>6 MB</td><td>12 MB</td></tr>
+<tr><td>Callouts</td><td colspan="2">100 per transaction, 120 s total timeout (10 s default per callout)</td></tr>
+<tr><td>SOSL queries</td><td colspan="2">20 (each returns up to 2,000 rows)</td></tr>
+<tr><td>@future calls</td><td>50</td><td>0 from future/batch (50 from queueable)</td></tr>
+<tr><td>Queueable jobs enqueued</td><td>50</td><td>1 from a queueable</td></tr>
+<tr><td>Email invocations (<code>sendEmail</code>)</td><td colspan="2">10</td></tr>
+<tr><td>Trigger recursion depth</td><td colspan="2">16</td></tr>
+</table></div>
+<h3 style="margin-top:14px">Other org-wide limits worth knowing</h3>
+<ul>
+<li>Batch Apex: scope size up to 2,000 (default 200); up to 5 batch jobs running at once; up to 100 jobs in the Flex Queue holding state; <code>QueryLocator</code> can return up to 50 million records.</li>
+<li>Daily async Apex executions: the larger of 250,000 or 200 per user license, per 24 hours.</li>
+<li>API requests per 24 hours depend on edition and licenses. Concurrent long-running (20 s+) requests are capped at 10 in production.</li>
+</ul>`,
+qs:[
+['Basic','What are governor limits and why do they exist?','<p>Runtime limits enforced per transaction, per org or per time period so that no tenant can monopolize shared resources on the multitenant platform. Exceeding a limit throws a non-catchable <code>System.LimitException</code> and rolls back the whole transaction.</p>'],
+['Basic','Can you catch a LimitException?','<p>No. It cannot be caught by a try-catch block; the transaction is terminated and rolled back. That is why you must monitor consumption with the <code>Limits</code> class and design for bulk safely up front.</p><pre><code>if (Limits.getQueries() &gt; Limits.getLimitQueries() - 5) { /* bail out or defer */ }</code></pre>'],
+['Basic','What are the most common governor limit mistakes and their fixes?','<ul><li><b>SOQL or DML in a loop</b>: collect IDs in a Set, query once with <code>IN :ids</code>, store results in a Map, and do DML on a collected List after the loop.</li><li><b>Non-bulkified triggers</b>: always iterate over <code>Trigger.new</code>.</li><li><b>Querying more than needed</b>: select only required fields, use filters and <code>LIMIT</code>.</li></ul>'],
+['Intermediate','How do you bulkify a trigger? Show the pattern.','<pre><code>trigger OppTrigger on Opportunity (after update) {\n  Set&lt;Id&gt; accIds = new Set&lt;Id&gt;();\n  for (Opportunity o : Trigger.new) accIds.add(o.AccountId);\n\n  Map&lt;Id,Account&gt; accs = new Map&lt;Id,Account&gt;(\n    [SELECT Id, Name FROM Account WHERE Id IN :accIds]);\n\n  List&lt;Account&gt; toUpdate = new List&lt;Account&gt;();\n  for (Opportunity o : Trigger.new) {\n    Account a = accs.get(o.AccountId);\n    if (a != null) { a.Description = \'Updated\'; toUpdate.add(a); }\n  }\n  update toUpdate;\n}</code></pre><p>Better still: keep the trigger thin and delegate to a handler class (one trigger per object).</p>'],
+['Intermediate','Do the limits reset between synchronous and asynchronous contexts?','<p>Yes. Each async job (future, queueable, batch execute, scheduled) runs in its own transaction with its own, usually higher, limits (200 SOQL, 60 s CPU, 12 MB heap). That is why heavy work is moved to async. Batch Apex gets a fresh set of limits for each <code>execute</code> chunk.</p>'],
+['Intermediate','Compare @future, Queueable, Batch and Scheduled Apex.','<div class="scroll"><table><tr><th></th><th>@future</th><th>Queueable</th><th>Batch</th><th>Scheduled</th></tr><tr><td>Parameters</td><td>Primitives only</td><td>Any, including sObjects</td><td>Start/execute/finish with scope</td><td>Cron expression</td></tr><tr><td>Chaining</td><td>No</td><td>Yes (1 child per job)</td><td>Chain from finish</td><td>Can enqueue others</td></tr><tr><td>Monitoring</td><td>Hard</td><td>Job Id</td><td>Job Id, Flex Queue</td><td>CronTrigger</td></tr><tr><td>Volume</td><td>Small</td><td>Medium</td><td>Up to millions</td><td>Depends on what it launches</td></tr></table></div><p>Prefer Queueable over @future in new code. Use Batch for large data volumes.</p>'],
+['Intermediate','What is the difference between SOQL for-loops and normal queries regarding heap?','<p>A SOQL for-loop streams records in chunks of 200, so it avoids loading all rows into heap at once. Use it when processing large result sets.</p><pre><code>for (List&lt;Account&gt; chunk : [SELECT Id FROM Account]) { /* 200 at a time */ }</code></pre><p>The 50,000-row query limit still applies.</p>'],
+['Intermediate','Give ways to reduce CPU time usage.','<ul><li>Avoid nested loops over big collections; use Maps for lookups.</li><li>Move logic into declarative tools only if they are cheaper (flows count toward the same transaction).</li><li>Avoid recalculating describe calls and cache them statically.</li><li>Use formula fields over Apex calculation.</li><li>Defer heavy work to async.</li><li>Use selective SOQL to reduce the number of rows processed.</li></ul>'],
+['Advanced','What is the difference between "Limits per transaction" and the "shared" state across triggers, flows and process automation?','<p>All automation executed in one transaction (triggers, record-triggered flows, processes, workflow field updates, validation) shares a single set of limits. That includes the cascade caused by one update firing another. So one flow that does 90 queries and a trigger that does 20 will fail together. Design flows and triggers with the total budget in mind.</p>'],
+['Advanced','How do you stop recursive triggers?','<p>Use a static variable in a handler class to track processed record IDs (not a simple boolean, which can wrongly skip later records in the same transaction), or restructure so updates occur only when a field value actually changed.</p><pre><code>public class Guard { public static Set&lt;Id&gt; seen = new Set&lt;Id&gt;(); }\nfor (Account a : Trigger.new) {\n  if (Guard.seen.contains(a.Id)) continue;\n  Guard.seen.add(a.Id);\n  // work\n}</code></pre>'],
+['Advanced','How would you update 5 million records?','<p>Use Batch Apex with a <code>Database.QueryLocator</code> (up to 50 million rows) and a sensible scope size (for example 200, lower if each record triggers heavy logic). Alternatively use Bulk API 2.0 from outside. Consider disabling non-essential automation with a custom permission or custom metadata switch during the load, using <code>Database.update(list, false)</code> to allow partial success, implementing <code>Database.Stateful</code> only when you need to carry state across chunks, and logging errors from <code>Database.SaveResult</code>.</p>'],
+['Advanced','What are the mixed DML and "uncommitted work pending" errors?','<p><b>Mixed DML</b>: you cannot do DML on setup objects (User, Group, PermissionSetAssignment, etc.) and non-setup objects in one transaction. Fix with <code>@future</code> or Queueable for one side (in tests, wrap one side in <code>System.runAs</code>). <b>Uncommitted work pending</b>: you cannot make a callout after DML in the same transaction; reorder the callout first or move DML/callout to separate async contexts.</p>'],
+]});
+
+T.push({id:'security',title:'Security: profiles, permission sets, FLS',
+intro:'Salesforce security is layered. The classic framing: org level, object level, field level, record level.',
+facts:`<h3>Four layers of access</h3>
+<div class="scroll"><table>
+<tr><th>Layer</th><th>Controls</th><th>Tools</th></tr>
+<tr><td>Organization</td><td>Who can log in, from where, when</td><td>Password policies, login hours, IP ranges, MFA, session settings, trusted networks</td></tr>
+<tr><td>Object</td><td>CRUD on an object (Create, Read, Edit, Delete, View All, Modify All)</td><td>Profiles, permission sets</td></tr>
+<tr><td>Field</td><td>Read/Edit on a field (field-level security)</td><td>Profiles, permission sets</td></tr>
+<tr><td>Record</td><td>Which rows a user sees</td><td>OWD, role hierarchy, sharing rules, teams, manual sharing</td></tr>
+</table></div>
+<p class="intro" style="margin-top:10px">Object and field access are <b>additive</b> across the profile and all permission sets. Record access is <b>restrictive by default</b> (OWD) and opened up by sharing.</p>`,
+qs:[
+['Basic','What is a profile and what does it control?','<p>A profile is the baseline set of permissions assigned to every user (exactly one profile per user). It controls object CRUD, field-level security, app and tab visibility, page layout assignment, record type access, Apex class and Visualforce page access, system permissions, login hours and login IP ranges, and the default app. Every user must have one.</p>'],
+['Basic','What is a permission set and how does it differ from a profile?','<p>A permission set grants additional access on top of a profile and can be assigned to many users, with a user holding many permission sets. It is purely additive: it cannot remove or deny what the profile grants. Profiles additionally control page layouts, login hours/IPs, and default app/record type, although some of these are moving to other features. Best practice is a minimum-access profile plus permission sets for everything else.</p>'],
+['Basic','What is a Permission Set Group and what is a Muting Permission Set?','<p>A Permission Set Group bundles several permission sets so they can be assigned together as a role-based package (for example "Sales Rep"). A Muting Permission Set inside the group <b>removes</b> specified permissions from the group\'s combined result, without altering the underlying permission sets. Muting only affects the group; the same permission can still reach a user through a separate assignment.</p>'],
+['Basic','What is field-level security?','<p>FLS decides if a user can see (read) or edit a field regardless of page layout. Hidden fields do not appear in the UI, reports, list views or search. The API honors FLS too. Page layouts only control UI placement, so never rely on them for security.</p>'],
+['Intermediate','Profile vs Permission Set: when a user has conflicting settings, what wins?','<p>Because permissions are additive, the most permissive grant wins. If any assigned profile or permission set grants Read on an object, the user has Read. "Deny" cannot be expressed, except through muting in a permission set group, which only mutes inside that group.</p>'],
+['Intermediate','What is the difference between "View All / Modify All" and "View All Data / Modify All Data"?','<ul><li><b>View All / Modify All</b> (object-level): access to all records of one specific object, bypassing sharing for that object.</li><li><b>View All Data / Modify All Data</b> (system permissions): all records of all objects, bypassing sharing. Modify All Data is almost admin-level.</li></ul><p>Granting these for a single object is a common way to give support or compliance read access without opening sharing rules.</p>'],
+['Intermediate','What are the "Permission Sets Standard vs Custom", "Session-based" and "Custom permissions" concepts?','<p><b>Custom permissions</b> are named flags you create and then check in Apex (<code>FeatureManagement.checkPermission</code>), flows, validation rules (<code>$Permission</code>) or Lightning page visibility. They allow feature toggles driven by permission sets. <b>Session-based permission sets</b> are activated only after a condition like MFA or a specific session level is satisfied, giving temporary elevated access.</p>'],
+['Intermediate','Does Apex respect user permissions?','<p>By default Apex runs in system mode, so object CRUD and field-level security are <b>not</b> enforced, and sharing depends on the class keyword (<code>with sharing</code>, <code>without sharing</code>, <code>inherited sharing</code>). To enforce, use:</p><ul><li><code>WITH USER_MODE</code> in SOQL and <code>as user</code> in DML (enforces CRUD, FLS and sharing; preferred in new code).</li><li><code>WITH SECURITY_ENFORCED</code> (older, throws on any inaccessible field).</li><li><code>Security.stripInaccessible()</code> to remove inaccessible fields silently.</li><li><code>Schema.sObjectType.Account.isAccessible()</code> and field describe checks.</li></ul><pre><code>List&lt;Account&gt; a = [SELECT Id, Name FROM Account WITH USER_MODE];\ninsert as user new Account(Name=\'X\');</code></pre>'],
+['Intermediate','What does the "Login As" and "Delegated Administration" feature do?','<p>Delegated administration lets non-admins manage specific users, assign specific profiles, and log in as users in assigned groups, without full admin rights. "Login As" lets admins (or delegated admins when users grant access) troubleshoot as the user.</p>'],
+['Advanced','Salesforce is moving away from permissions on profiles. How would you prepare?','<p>Design around minimum-access profiles plus Permission Set Groups. Use the "Permission Set Groups" and "Permissions Analyzer" tooling, convert profile-based permissions into permission sets using the Profile-to-Permission-Set conversion tool, and keep only unavoidable settings (such as login hours and default app) on profiles. Check current release notes for the retirement timeline, since dates have moved.</p>'],
+['Advanced','How does Shield Platform Encryption differ from classic encrypted fields?','<p>Classic Encrypted Text is a custom field type with a mask, limited length, and no use in filters or searches. Shield Platform Encryption encrypts standard and custom fields, files and attachments at rest with tenant-secret-based keys, supports deterministic encryption for filtering (equality), and preserves most platform features with some restrictions (for example reduced SOQL operators, and some formula limitations). It is a paid add-on and needs key management planning (BYOK, rotation, backups).</p>'],
+['Advanced','Describe how you would secure an integration user.','<ul><li>Dedicated integration user with the "API Only User" permission and a minimal profile.</li><li>Permission sets that grant only the required objects and fields.</li><li>OAuth connected app with the narrowest scopes, IP restrictions, and certificate/JWT flow instead of passwords.</li><li>Named Credentials for outbound callouts, so secrets are not in code.</li><li>Event Monitoring or Setup Audit Trail for oversight.</li><li>Avoid View All Data unless unavoidable; do not let it own millions of records (ownership skew).</li></ul>'],
+]});
+
+T.push({id:'sharing',title:'Sharing settings and record access',
+intro:'How rows get visible. Start from the most restrictive OWD, then open up. Sharing can only grant, never take away.',
+facts:`<h3>Sharing model order (most restrictive to most open)</h3>
+<ol>
+<li><b>Organization-Wide Defaults (OWD)</b>: Private, Public Read Only, Public Read/Write, Public Read/Write/Transfer (Leads, Cases), Controlled by Parent, Public Full Access (Campaigns). There are separate internal and external defaults.</li>
+<li><b>Role hierarchy</b>: managers inherit access to subordinates\' records (only if "Grant Access Using Hierarchies" is on for the object; it is always on for standard objects).</li>
+<li><b>Sharing rules</b>: owner-based or criteria-based; share with roles, roles and subordinates, public groups, queues. Can only extend access.</li>
+<li><b>Teams and manual sharing</b>: Account/Opportunity/Case teams, user-initiated sharing, territory management.</li>
+<li><b>Apex managed sharing</b>: programmatic rows in <code>&lt;Object&gt;__Share</code> with custom row causes that survive owner changes.</li>
+</ol>
+<p class="intro" style="margin-top:8px">Also: <b>implicit sharing</b> (parent/child access on Accounts, Contacts, Opportunities, Cases), <b>Sharing Sets and Share Groups</b> for Experience Cloud users.</p>`,
+qs:[
+['Basic','What are Organization-Wide Defaults?','<p>OWD sets the baseline record access for each object for users who do not own the record and are not otherwise granted access. It is the most restrictive level in the sharing model. Other sharing mechanisms open access from there; none can go below it.</p>'],
+['Basic','What is the role hierarchy and does it replace profiles?','<p>The role hierarchy controls record visibility upward: users in higher roles can see records owned by users below them (and report on them). Roles do <b>not</b> grant object or field permissions; that is profiles and permission sets. Roles are optional but needed for hierarchy-based access, forecasting and some reporting.</p>'],
+['Basic','What is a sharing rule and what types are there?','<p>A sharing rule grants extra access to a group of users for records that match a condition. Types: owner-based (records owned by members of a role or group), criteria-based (field values, for example Region = East), and guest user rules for sites. Access granted is Read Only or Read/Write. Rules can only expand access beyond OWD.</p>'],
+['Intermediate','Can sharing rules be used with master-detail child objects?','<p>No. A detail record is Controlled by Parent, so access is determined by the master. You cannot define OWD or sharing rules for the child. Share the master or restructure to a lookup.</p>'],
+['Intermediate','What is the difference between "with sharing", "without sharing" and "inherited sharing"?','<ul><li><code>with sharing</code>: respects the running user\'s sharing rules.</li><li><code>without sharing</code>: ignores sharing (still runs in system mode for CRUD and FLS).</li><li><code>inherited sharing</code>: adopts the caller\'s mode; if it is the entry point it runs as <code>with sharing</code>.</li></ul><p>A class with no keyword inherits from the caller; but the entry point (trigger, anonymous Apex, Visualforce controller) with no keyword runs without sharing in most cases, which is why you declare it explicitly. Inner classes do not inherit from the outer class. A secure default is <code>with sharing</code> on every class and <code>without sharing</code> only on narrowly scoped helpers.</p>'],
+['Intermediate','What are Account Teams and Opportunity Teams, and Apex Managed Sharing?','<p>Teams let record owners add users with a specified role and access level without using sharing rules or the hierarchy. Apex Managed Sharing is when code inserts rows into the object\'s share table (<code>AccountShare</code>, <code>MyObj__Share</code>) with a custom <code>RowCause</code> defined in an Apex Sharing Reason. Those rows survive a change of owner, unlike manual shares, which are removed on owner change. Available only when OWD is Private or Public Read Only.</p><pre><code>MyObj__Share s = new MyObj__Share();\ns.ParentId = rec.Id;\ns.UserOrGroupId = userId;\ns.AccessLevel = \'Edit\';\ns.RowCause = Schema.MyObj__Share.RowCause.Partner_Access__c;\ninsert s;</code></pre>'],
+['Intermediate','What happens to manual sharing when the record owner changes?','<p>Manual shares are lost when the owner changes (and when OWD becomes more permissive in some cases). Apex managed sharing with a custom reason persists. Share rows created by sharing rules and role hierarchy are recalculated automatically.</p>'],
+['Intermediate','Explain implicit sharing.','<p>Built-in behaviors on standard objects: if you have access to a child record (Contact, Opportunity, Case) you get read-only access to the parent Account, and if you have access to an Account you get access to its children according to the role setting for that Account (Contact, Opportunity, Case access settings). Not configurable and not visible in the share table the same way as explicit sharing.</p>'],
+['Advanced','What is sharing recalculation and why can it be slow?','<p>When you change OWD, role hierarchy, or sharing rules, Salesforce recalculates access for affected records asynchronously. Large data volumes, group membership changes, and data skew can make it take hours, during which setup changes may be queued. Use <b>deferred sharing calculation</b> to suspend recalculation during large loads or restructures, then resume. Deleting and recreating roles and public groups in big batches is a common cause of long recalcs.</p>'],
+['Advanced','How do you give external (Experience Cloud) users access to records?','<p>Use external OWD set to Private, then:</p><ul><li><b>Sharing Sets</b>: grant access to records related to the user\'s Account or Contact (high-volume portal users).</li><li><b>Share Groups</b> to share user-owned records with other users of the same account.</li><li><b>Sharing rules</b> for external users and groups, and Apex managed sharing for complex cases.</li><li><b>Guest user sharing rules</b> for unauthenticated access (guest users cannot be given ownership and have tight limits).</li></ul>'],
+['Advanced','How would you design access: a regional sales model where managers see their region, reps only their own, and a Legal team sees only contracts with a flag?','<ol><li>OWD Private on Opportunity and Contract (custom flag field).</li><li>Role hierarchy by region so managers inherit rep records.</li><li>Criteria-based sharing rule on Contract where <code>Legal_Review__c = true</code>, shared with the Legal public group (Read Only).</li><li>Profiles minimal, permission sets for Legal object permissions on Contract.</li><li>Field-level security hides sensitive fields from reps.</li></ol>'],
+['Advanced','What is the difference between sharing and permission "View All" in reports and dashboards?','<p>Reports show data according to the running user\'s record access. Dashboards run as a chosen running user (or the viewing user in dynamic dashboards), which may expose data the viewer could not otherwise see, a common review finding. Prefer dynamic dashboards when sensitivity matters, and mind the licenses required.</p>'],
+]});
+
+T.push({id:'approval',title:'Approval processes and automation order',
+intro:'Approval processes route records to approvers with locking and actions. Know their anatomy and how they sit in the order of execution.',
+facts:`<h3>Anatomy of an approval process</h3>
+<ul>
+<li><b>Entry criteria</b>: which records can be submitted.</li>
+<li><b>Initial submitters</b> and optional record editability while pending.</li>
+<li><b>Approval steps</b>: step criteria, approver (user, queue, related user such as manager, or hierarchy field), unanimous vs first-response for multiple approvers, and what to do if criteria are not met (approve, reject, or skip).</li>
+<li><b>Actions</b> at five points: initial submission, step approval, step rejection, final approval, final rejection, plus recall. Action types: field update, email alert, task, outbound message.</li>
+<li><b>Record locking</b>: the record is locked while pending; only admins and (optionally) approvers can edit.</li>
+</ul>`,
+qs:[
+['Basic','What is an approval process?','<p>An automated, multi-step workflow that routes a record to one or more approvers and takes actions on submission, approval or rejection. Typical examples: discount approvals, expense reports, contract sign-off.</p>'],
+['Basic','What happens to a record while it is in approval?','<p>It is locked. Normal users cannot edit it. Administrators can, and you can configure approvers to edit the record when assigned. An admin or the submitter (if configured) can recall it, unlocking it. After final approval or rejection, a final action usually unlocks it, or you may keep it locked.</p>'],
+['Basic','What can be an approver?','<p>A specific user, a queue, a public group member via queue, the submitter\'s manager (from the User hierarchy), or a user in a field on the record (user lookup field). You can also assign a delegated approver per approver who can respond on their behalf.</p>'],
+['Intermediate','How do you handle multiple approvers on one step?','<p>Either require <b>unanimous approval</b> (all must approve; any rejection rejects) or <b>first response</b> (the first action decides). For parallel approvals you would use one step with multiple approvers; sequential approvals use separate steps. For several different parallel paths consider Flow Orchestration or multiple approval processes.</p>'],
+['Intermediate','What actions can an approval process execute and when?','<ul><li><b>Initial submission</b>: lock record, set status to Pending, email alert.</li><li><b>Approval step</b>: after approval or rejection of that step.</li><li><b>Final approval</b>: set Status = Approved, update fields, create task, unlock.</li><li><b>Final rejection</b>: set Status = Rejected, notify submitter.</li><li><b>Recall</b>: set Status back to Draft/Recalled.</li></ul><p>Action types: field update, email alert, task, outbound message. For complex logic, update a status field and let a record-triggered Flow react to it.</p>'],
+['Intermediate','Can you submit a record for approval from Apex or Flow?','<p>Yes. In Apex use <code>Approval.ProcessSubmitRequest</code> and <code>Approval.ProcessWorkitemRequest</code>. In Flow, use the Submit for Approval action. Also see Flow Approval Processes (Flow Orchestrator based approvals) for newer builds.</p><pre><code>Approval.ProcessSubmitRequest req = new Approval.ProcessSubmitRequest();\nreq.setObjectId(rec.Id);\nreq.setComments(\'Please approve\');\nApproval.ProcessResult r = Approval.process(req);</code></pre>'],
+['Intermediate','Why might a user not see "Submit for Approval"?','<ul><li>Button not on the page layout (Lightning: the Approval History related list and the Submit action).</li><li>Entry criteria not met.</li><li>User is not an allowed initial submitter.</li><li>Another active approval process already matches, or the record is already locked/pending.</li><li>Record type or process activation issues.</li></ul>'],
+['Advanced','Where do approval processes fall in the order of execution?','<p>A simplified order for a save: system validation and before-save flows, before triggers, custom validation rules, duplicate rules, record saved to DB (not committed), after triggers, assignment rules, auto-response rules, workflow rules (field updates re-fire before/after triggers once), escalation rules, <b>approval processes</b> (entry and submit actions are evaluated after workflow in the same transaction on submit), after-save record-triggered flows, entitlement rules, roll-up summary and cross-object updates (parent re-saves), criteria-based sharing evaluation, commit, then post-commit logic (emails, async). Know it exists; interviewers usually want the big landmarks: validation, before trigger, after trigger, workflow/flow, roll-ups, commit.</p>'],
+['Advanced','Approval process vs Flow: which would you choose today?','<p>Classic approval processes are stable and simple for linear approvals. For new builds with branching, multiple parallel paths, reassignments, or approval of non-record data, use Flow Orchestrator / Flow Approval processes. Salesforce is directing new automation to Flow (Workflow Rules and Process Builder are retired for new creation and in end-of-life), so migrate legacy automation to Flow when you touch it.</p>'],
+['Advanced','How do you test an Apex that submits for approval?','<p>Create the record and an active approval process must exist in the org metadata (tests can see approval processes), then call <code>Approval.process</code>. You can verify the <code>ProcessInstance</code> and <code>ProcessInstanceWorkitem</code> records. Use <code>System.runAs</code> for submitter and approver users. Mixed DML rules may apply when creating users.</p>'],
+]});
+
+T.push({id:'scenarios',title:'Scenario and rapid-fire questions',
+intro:'Mix-and-match questions interviewers use to test judgment. Practice answering in under two minutes.',
+facts:`<h3>How to answer scenario questions</h3>
+<ul><li>Restate the requirement and ask one clarifying question.</li><li>Choose declarative first (validation, flow, sharing rule), code when limits or complexity demand it.</li><li>Call out data volume, security impact and testing.</li><li>Name one trade-off you accepted.</li></ul>`,
+qs:[
+['Basic','A user can see a record but not a field. Where do you look?','<p>Field-level security on their profile and permission sets (read access), then page layout and Lightning page configuration, then record type picklist availability, then whether the field is encrypted or hidden by a dynamic form rule.</p>'],
+['Basic','A user cannot see a record they expect to. Steps?','<ol><li>Check object Read permission (profile and permission sets).</li><li>Check OWD and whether they own the record.</li><li>Role hierarchy position vs the owner.</li><li>Sharing rules, teams, manual shares (use "Sharing" button on the record).</li><li>List view filters, record type, and report filters.</li><li>Use Login As or the "Why can\'t user see" tools to confirm.</li></ol>'],
+['Intermediate','You need a field visible only to certain users on an object. Options?','<p>Use FLS on profiles or permission sets (true security). Page layouts and dynamic forms only hide the field in the UI. For conditional visibility on a Lightning page, use dynamic forms with a custom permission filter in addition to FLS.</p>'],
+['Intermediate','Rank these by when you would use them: validation rule, before-save flow, after-save flow, Apex trigger.','<p>Validation rule for blocking bad data declaratively. Before-save flow for same-record field updates (fastest, no DML). After-save flow for related-record changes, emails, callouts via actions. Apex trigger when you need complex logic, bulk processing control, savepoints, or limits that flows cannot meet. Avoid having flow and trigger both modify the same fields without a documented order.</p>'],
+['Intermediate','How do you load 200,000 records with relationships from a CSV?','<p>Use Data Loader or Bulk API 2.0. Load parents first, keep an External ID on each parent, and then load children using the External ID relationship column (<code>Parent__r.Ext_Id__c</code>) so no Salesforce IDs are needed. Disable or bypass automation with a custom setting if possible, load in an order that avoids lock contention (sort children by parent), and verify with a sandbox run.</p>'],
+['Intermediate','Convert a text field containing dates to a Date field without losing data. Plan?','<ol><li>Export current data as a backup.</li><li>Create a new Date field.</li><li>Parse and populate it with a data load or Apex batch after cleaning bad formats.</li><li>Update references (flows, reports, formulas, Apex) to the new field.</li><li>Validate, then retire the old field. Direct conversion of Text to Date may be unavailable or lose values, so a parallel field is safest.</li></ol>'],
+['Advanced','Design a solution so reps can see all Accounts for read, but only edit their own, and managers edit their team\'s.','<p>OWD Public Read Only for Account. Role hierarchy with "Grant Access Using Hierarchies" gives managers edit access to subordinates\' records (hierarchy grants the same access as the subordinate has, which is owner-level edit). Reps have Edit on the Account object via profile or permission set, but only owners and hierarchy ancestors can actually edit because OWD is read-only for others.</p>'],
+['Advanced','Your trigger works for one record but fails on data loads. What do you check?','<p>Non-bulkified queries or DML in loops, hitting 100 SOQL / 150 DML / CPU limits, recursion from flows, row locks from parallel loads, non-selective queries only failing at volume, and assumptions that <code>Trigger.new</code> has size 1. Reproduce with 200 records in a test and read the debug log limits summary.</p>'],
+['Advanced','What are the top debugging tools?','<p>Debug logs with log levels and filters, Developer Console Execution Log and Limits panels, <code>System.debug</code> with <code>Limits</code> methods, Apex Replay Debugger in VS Code, Event Monitoring, Flow debug and Run History, Setup Audit Trail, and the Apex Exception Email.</p>'],
+['Advanced','Tell me how you would structure an enterprise Apex codebase.','<ul><li>One trigger per object delegating to a handler/domain class.</li><li>Service layer for business logic, selector layer for SOQL, unit-of-work for DML (Apex Enterprise Patterns).</li><li>Security with <code>with sharing</code> default and <code>USER_MODE</code>.</li><li>Test classes at least 75% coverage overall in production, but target meaningful assertions with bulk (200 records) tests, negative tests, and <code>System.runAs</code>.</li><li>Configuration in Custom Metadata, secrets in Named Credentials.</li></ul>'],
+]});
+
+/* render */
+const content = document.getElementById('content');
+const rail = document.getElementById('rail');
+const qInput = document.getElementById('q');
+const countEl = document.getElementById('count');
+let level = 'all', expanded = false;
+
+T.forEach(t=>{
+  const a = document.createElement('a'); a.href='#'+t.id; a.textContent=t.title.split(':')[0].replace(/ and .*/, m=>m); a.dataset.id=t.id; rail.appendChild(a);
+  const s = document.createElement('section'); s.className='topic'; s.id=t.id;
+  s.innerHTML = '<h2>'+t.title+'</h2><p class="intro">'+t.intro+'</p><div class="facts">'+t.facts+'</div><div class="qs"></div><div class="empty" hidden>No questions match.</div>';
+  const box = s.querySelector('.qs');
+  t.qs.forEach(([lv,q,a])=>{
+    const d = document.createElement('details');
+    d.dataset.level = lv;
+    d.innerHTML = '<summary><span class="q">'+q+'</span><span class="tag '+lv+'">'+lv+'</span></summary><div class="ans">'+a+'</div>';
+    box.appendChild(d);
+  });
+  content.appendChild(s);
+});
+
+function apply(){
+  const term = qInput.value.trim().toLowerCase();
+  let shown = 0, total = 0;
+  document.querySelectorAll('section.topic').forEach(sec=>{
+    let any = 0;
+    sec.querySelectorAll('details').forEach(d=>{
+      total++;
+      const okL = level==='all' || d.dataset.level===level;
+      const okT = !term || d.textContent.toLowerCase().includes(term);
+      d.hidden = !(okL && okT);
+      if(!d.hidden){any++; shown++;}
+    });
+    sec.querySelector('.empty').hidden = any>0;
+  });
+  countEl.textContent = shown+' of '+total+' questions';
+}
+qInput.addEventListener('input',apply);
+document.getElementById('levels').addEventListener('click',e=>{
+  const b = e.target.closest('button'); if(!b) return;
+  level = b.dataset.l;
+  document.querySelectorAll('#levels .chip').forEach(c=>c.setAttribute('aria-pressed', c===b));
+  apply();
+});
+const tog = document.getElementById('toggleAll');
+tog.addEventListener('click',()=>{
+  expanded = !expanded;
+  document.querySelectorAll('details').forEach(d=>{ if(!d.hidden) d.open = expanded; });
+  tog.textContent = expanded ? 'Collapse all' : 'Expand all';
+});
+apply();
+
+/* highlight current topic in rail */
+const links = [...rail.querySelectorAll('a')];
+const obs = new IntersectionObserver(es=>{
+  es.forEach(e=>{ if(e.isIntersecting){ links.forEach(l=>l.classList.toggle('on', l.dataset.id===e.target.id)); } });
+},{rootMargin:'-20% 0px -70% 0px'});
+document.querySelectorAll('section.topic').forEach(s=>obs.observe(s));
+</script>
+
+</body></html>
